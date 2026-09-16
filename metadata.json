@@ -1,0 +1,6 @@
+{
+  "name": "WhatsApp Business",
+  "description": "WhatsApp Business app featuring business tools, customer chats, catalog showcase, automated messaging, and order labels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

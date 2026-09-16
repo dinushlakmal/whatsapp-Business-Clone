@@ -35,9 +35,14 @@ class _ProfileUpdaterState extends State<ProfileUpdater> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // Save data specific to the logged-in phone number
-    await prefs.setString('${widget.phoneNumber}_businessName', businessNameController.text.trim());
+    final name = businessNameController.text.trim();
+    await prefs.setString('${widget.phoneNumber}_businessName', name);
+    if (name.isNotEmpty) {
+      await prefs.setString('business_name', name);
+    }
     if (selectedCategory != null) {
       await prefs.setString('${widget.phoneNumber}_category', selectedCategory!);
+      await prefs.setString('business_category', selectedCategory!);
     }
 
     // Set isLoggedIn flag to true

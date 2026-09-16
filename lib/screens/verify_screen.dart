@@ -14,35 +14,28 @@ class _VerifyPageState extends State<VerifyPage> {
   final TextEditingController phoneController = TextEditingController();
 
   void verifyPhoneNumber() {
-    String phoneNumber = selectedCode + phoneController.text.trim();
-
-    if (loginCredentials.containsKey(phoneNumber)) {
-      String otp = loginCredentials[phoneNumber]!["otp"]!;
-      // Navigate to OTP Verification Page
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OtpVerificationPage(
-            phoneNumber: phoneNumber,
-            otp: otp,
-          ),
-        ),
+    String numberPart = phoneController.text.trim();
+    if (numberPart.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter a phone number")),
       );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Verification Failed"),
-          content: Text("The phone number entered is not registered."),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text("Retry"),
-            ),
-          ],
-        ),
-      );
+      return;
     }
+    String phoneNumber = selectedCode + numberPart;
+    String otp = loginCredentials.containsKey(phoneNumber)
+        ? loginCredentials[phoneNumber]!["otp"]!
+        : "123456";
+
+    // Navigate to OTP Verification Page
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OtpVerificationPage(
+          phoneNumber: phoneNumber,
+          otp: otp,
+        ),
+      ),
+    );
   }
 
   @override

@@ -152,7 +152,19 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 8),
+            ActionChip(
+              avatar: const Icon(Icons.password, size: 16, color: Color(0xFF00A884)),
+              label: Text('Use code: ${widget.otp}', style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF075E54))),
+              backgroundColor: const Color(0xFFE7FFDB),
+              onPressed: () {
+                for (int i = 0; i < widget.otp.length && i < otpControllers.length; i++) {
+                  otpControllers[i].text = widget.otp[i];
+                }
+                verifyOtp();
+              },
+            ),
+            const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Container(
